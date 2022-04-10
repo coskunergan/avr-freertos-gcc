@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "beforeBuildTasks": [],
+    "afterBuildTasks": [
+        {
+            "name": "make hex",
+            "disable": false,
+            "abortAfterFailed": false,
+            "command": "\"${CompilerFolder}/${CompilerPrefix}objcopy\" -O ihex \"${OutDir}/${TargetName}.elf\" \"${OutDir}/${TargetName}.hex\""
+        },
+        {
+            "name": "make bin",
+            "disable": true,
+            "abortAfterFailed": false,
+            "command": "\"${CompilerFolder}/${CompilerPrefix}objcopy\" -O binary \"${OutDir}/${TargetName}.elf\" \"${OutDir}/${TargetName}.bin\""
+        }
+    ],
+    "global": {
+        "misc-control": "-mmcu=atmega128"
+    },
+    "c/cpp-compiler": {
+        "one-elf-section-per-function": true,
+        "one-elf-section-per-data": true,
+        "C_FLAGS": "-c -xc -Wall -gdwarf-2 -std=gnu99 -Wno-pointer-to-int-cast -O2 -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wno-int-to-pointer-cast",
+        "CXX_FLAGS": "-c -xc++ -Wall -gdwarf-2 -Wno-pointer-to-int-cast -O2 -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wno-int-to-pointer-cast"
+    },
+    "asm-compiler": {
+        "ASM_FLAGS": "-c"
+    },
+    "linker": {
+        "output-format": "elf",
+        "remove-unused-input-sections": true,
+        "LIB_FLAGS": "-lm"
+    }
+}
